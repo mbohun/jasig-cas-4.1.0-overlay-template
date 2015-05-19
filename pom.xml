@@ -58,6 +58,18 @@
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
+	<!-- TODO: cas-server-webapp-support is:
+	     - required for the ALA customized org.jasig.cas.web.flow.SendTicketGrantingTicketAction, to set an ALA
+	       specific cookie using the WEB-INF/spring-configuration/alaProxyAuthenticationCookieGenerator.xml
+	     - buggy/broken in cas-4.1.0-SNAPSHOT (2015-05-19)
+	<dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-webapp-support</artifactId>
+            <version>${cas.version}</version>
+            <type>jar</type>
+	    <scope>compile</scope>
+        </dependency>
+	-->
 	<dependency>
 	    <groupId>org.jasig.cas</groupId>
 	    <artifactId>cas-server-support-jdbc</artifactId>
@@ -124,11 +136,45 @@
 	    <version>${cas.version}</version>
 	    <type>jar</type>
 	</dependency>
+	<!-- pac4j -->
+	<dependency>
+	    <groupId>org.jasig.cas</groupId>
+	    <artifactId>cas-server-support-oauth</artifactId>
+	    <version>${cas.version}</version>
+	    <type>jar</type>
+	</dependency>
+	<dependency>
+	    <groupId>org.jasig.cas</groupId>
+	    <artifactId>cas-server-support-pac4j</artifactId>
+	    <version>${cas.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.pac4j</groupId>
+	    <artifactId>pac4j-oauth</artifactId>
+	    <version>${pac4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.pac4j</groupId>
+	    <artifactId>pac4j-cas</artifactId>
+	    <version>${pac4j.version}</version>
+	    <exclusions>
+		<exclusion>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk15</artifactId>
+		</exclusion>
+	    </exclusions>
+	</dependency>
+	<dependency>
+	    <groupId>org.pac4j</groupId>
+	    <artifactId>pac4j-openid</artifactId>
+	    <version>${pac4j.version}</version>
+	</dependency>
 
     </dependencies>
 
     <properties>
         <cas.version>4.1.0-SNAPSHOT</cas.version>
+	<pac4j.version>1.7.0</pac4j.version>
 	<hibernate.core.version>4.1.0.Final</hibernate.core.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>

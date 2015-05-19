@@ -62,7 +62,7 @@
                    -->
                 <entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
                 <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />
-		<entry key-ref="secondaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />
+		<entry key-ref="secondaryAuthenticationHandler" ><null /></entry>
             </map>
         </constructor-arg>
 
@@ -76,6 +76,7 @@
 	<property name="authenticationMetaDataPopulators">
 	    <list>
 		<bean class="org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator" />
+		<bean class="org.jasig.cas.support.pac4j.authentication.ClientAuthenticationMetaDataPopulator" />
 	    </list>
 	</property>
 
@@ -132,12 +133,8 @@
     </bean>
 
     <bean id="secondaryAuthenticationHandler"
-	  class="org.jasig.cas.authentication.AcceptUsersAuthenticationHandler">
-	<property name="users">
-	    <map>
-		<entry key="casuser" value="Mellon"/>
-	    </map>
-	</property>
+	  class="org.jasig.cas.support.pac4j.authentication.handler.support.ClientAuthenticationHandler">
+	<constructor-arg index="0" ref="clients"/>
     </bean>
 
     <!-- Required for proxy ticket mechanism -->
